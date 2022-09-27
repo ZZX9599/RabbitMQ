@@ -1,0 +1,28 @@
+spring:
+  rabbitmq:
+    host: 192.168.61.133
+    port: 5672
+    virtual-host: ZZX
+    username: ZZX
+    password: JXLZZX79
+    listener:
+      simple:
+        #none 则不使用消息确认机制，一旦拿到消息，则MQ直接删除队列的消息
+        #manual 手动ack，需要在业务代码结束后，调用api发送ack
+        #auto 自动ack，由spring监测listener代码是否出现异常，没有异常则返回ack；抛出异常则返回nack【常用】
+        #auto 默认情况下，失败了会一直重试，给MQ带来巨大的压力，达到阈值后结束
+        acknowledge-mode: auto
+        retry:
+          initial-interval: 1000ms
+          enabled: true
+          max-attempts: 3
+          max-interval: 10000ms
+          multiplier: 2
+
+    #生产者确认机制相关
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template:
+      mandatory: true
+
+

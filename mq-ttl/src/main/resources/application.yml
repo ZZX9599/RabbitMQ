@@ -1,0 +1,19 @@
+spring:
+  rabbitmq:
+    host: 192.168.61.133
+    port: 5672
+    virtual-host: ZZX
+    username: ZZX
+    password: JXLZZX79
+    listener:
+      simple:
+        retry:
+          enabled: true
+          multiplier: 2
+          max-attempts: 3
+          max-interval: 8000ms
+          initial-interval: 1000ms
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template:
+      mandatory: true
